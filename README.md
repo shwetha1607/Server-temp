@@ -11,6 +11,7 @@ This system uses Computer Vision to detect the temperature reading from the disp
     ```python
     import cv2
     ```
+* [requirements.txt]()
 
 ### Getting Started
     
@@ -88,11 +89,46 @@ Full Code on Github: [temp_detect.py](https://github.com/shwetha1607/Server-temp
 Users can opt-out from or resume receiving notifications via sending a mail with a specific subject and keyword by clicking on the link available on the site. Python's `imaplib` is used to read these received mails.
 The database of users can be updated by running [getsheetdata.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/getsheetdata.py). Google Drive and Sheets API and Python's `gspread` library is used to implement this. References to this is linked down below. The status of the user's notification preference( active or inactive) is also checked and updated in the process.
 
-Full code on Github: [getsheetdata.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/getsheetdata.py), [receivemail.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/receivemail.py)
+Full code on Github: [getsheetdata.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/getsheetdata.py), [receive_mail.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/receive_mail.py)
 
 * __*Mailing service for sending out alerts*__: 
-	
+	Python's `smtplib` and `email` libraries are used for sending an email alert along with the image taken as an attachment, as and when the temperature detected exceeds the given acceptable range.
 
+* __*SMS alerts*__:
+	[TextLocal](https://www.textlocal.in/) is the SMS platform used to send out alerts via text messages programmatically. A SMS-bundle is purchased that provides a set of SMS credits that can be used to send messages(whose format follows a registered template created for the need) to any mobile number 24/7. Their [documentation](https://api.textlocal.in/docs/) provides the details and requirements to do so.
+	
+* The credentials for sending out mails and texts are saved as *config.py* in the following format:
+```python
+class TextLocal:
+        def __init__(self):
+                self.apiKey = 'api-key'
+                self.senderID = 'Sender ID'              
+
+class Email:
+        def __init__(self):
+                self.SMTP_SERVER = 'smtp.gmail.com'
+                self.SMTP_PORT = 465
+                self.FROM_ADD = 'user@gmail.com'
+                self.USERNAME = 'user@gmail.com'
+                self.PASSWORD = 'password'
+```
+
+All the above metioned functionalities is encapsulated and run by the driver program: [pidriver.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/pidriver.py)
+
+
+### Scheduling tasks
+
+To automate taking a picture and processing the image to detect temperature reading followed by sending alerts if required, are scheduled to execute every hour using Cron. Cron is a tool for configuring scheduled tasks on Unix systems. It is used to schedule commands or scripts to run periodically and at fixed intervals. `final_execute.sh` is the shell script scheduled to run every hour.
+
+###### final_execute.sh
+```shell
+!/bin/bash
+
+source ~/.profile
+workon cv
+python /home/pi/stillpic.py
+python /home/pi/Detect_Notify/pidriver.py
+```
 
 ### References
 
