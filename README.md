@@ -14,7 +14,7 @@ This system uses Computer Vision to detect the temperature reading from the disp
 
 ### Getting Started
     
-* Accessing the Raspberry Pi camera with Python and OpenCV:
+* __*Accessing the Raspberry Pi camera with Python and OpenCV*__:
 	A picture of the temperature display is to be taken to be processed. A picture is taken every hour by setting up a cron job. This picture is saved to be processed only if the lights aren't turned on in the server room, i.e. only when the environment is dark.
     
 ###### Saving the image:
@@ -34,7 +34,7 @@ A sample image:
 
 Full Code on Github: [stillpic.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/stillpic.py)
 
-* Detecting the temperature reading:
+* __*Detecting the temperature reading*__:
 	The temperature reading is displayed as seven segment digits. The steps to detect what digit it reads are as follows:
 	- Detecting the bright spots in the image: Thresholding operations followed by dilation, erosion and other preprocessing functions returns an image with only the digits displayed highlighted.
 	- Extracting the digit ROI: Contours that are large enough to be a digit(the appropriate width and height constraints requires a few rounds of trial and error) in the image is taken as a digit ROI. A contour is simply a curve joining all the continuous points (along the boundary), having same color or intensity.
@@ -42,16 +42,20 @@ Full Code on Github: [stillpic.py](https://github.com/shwetha1607/Server-temp/bl
 	
 Full Code on Github: [temp_detect.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/temp_detect2.py)
 
-* Register
-	A site for users to register by providing a temperature threshold and email/phone number to receive alerts is up and running at
-    [Site] (https://roomserver.github.io/Server-Temperature/)
-	Users can opt-out from or resume receiving notifications via sending a mail by clicking on the link available on the site.
+* __*Register*__:
+	A site for users to register by providing a temperature threshold and email/phone number to receive alerts is up and running at [this site] (https://roomserver.github.io/Server-Temperature/)
+    
+Users can opt-out from or resume receiving notifications via sending a mail with a specific subject and keyword by clicking on the link available on the site. Python's `imaplib` is used to read these received mails.
+The database of users can be updated by running [getsheetdata.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/getsheetdata.py). Google Drive and Sheets API and Python's `gspread` library is used to implement this. References to this is linked down below. The status of the user's notification preference( active or inactive) is also checked and updated in the process.
 
-* Mailing service for sending out alerts:
+FUll code on Github: [getsheetdata.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/getsheetdata.py), [receivemail.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/receivemail.py)
+
+* __*Mailing service for sending out alerts*__: 
 
 
 ### References
 
 * [Accessing Picamera with OpenCV and python](https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/)
 * [Recognizing digits](https://www.pyimagesearch.com/2017/02/13/recognizing-digits-with-opencv-and-python/)
-
+* [Google Spreadsheets and Python](https://www.twilio.com/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html)
+* [Python's imaplib](https://docs.python.org/3/library/imaplib.html)
