@@ -1,5 +1,3 @@
-# Server-temp
-
 ## About
 
 This system uses Computer Vision to detect the temperature reading from the display and sends out alerts accordingly. This repository is where you can find the code that does the same.
@@ -98,6 +96,7 @@ Full code on Github: [getsheetdata.py](https://github.com/shwetha1607/Server-tem
 	[TextLocal](https://www.textlocal.in/) is the SMS platform used to send out alerts via text messages programmatically. A SMS-bundle is purchased that provides a set of SMS credits that can be used to send messages(whose format follows a registered template created for the need) to any mobile number 24/7. Their [documentation](https://api.textlocal.in/docs/) provides the details and requirements to do so.
 	
 * The credentials for sending out mails and texts are saved as *config.py* in the following format:
+
 ```python
 class TextLocal:
         def __init__(self):
@@ -113,8 +112,7 @@ class Email:
                 self.PASSWORD = 'password'
 ```
 
-All the above metioned functionalities is encapsulated and run by the driver program: [pidriver.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/pidriver.py)
-
+* All the above metioned functionalities is encapsulated and run by the driver program: [pidriver.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/pidriver.py)
 
 ### Scheduling tasks
 
