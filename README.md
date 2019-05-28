@@ -36,9 +36,49 @@ Full Code on Github: [stillpic.py](https://github.com/shwetha1607/Server-temp/bl
 
 * __*Detecting the temperature reading*__:
 	The temperature reading is displayed as seven segment digits. The steps to detect what digit it reads are as follows:
-	- Detecting the bright spots in the image: Thresholding operations followed by dilation, erosion and other preprocessing functions returns an image with only the digits displayed highlighted.
-	- Extracting the digit ROI: Contours that are large enough to be a digit(the appropriate width and height constraints requires a few rounds of trial and error) in the image is taken as a digit ROI. A contour is simply a curve joining all the continuous points (along the boundary), having same color or intensity.
-	- Identify the digits: Recognizing the actual digits with OpenCV will involve dividing the digit ROI into seven segments. From there, pixel counting on the thresholded image is applied to determine if a given segment is “on” or “off”.
+	- *Detecting the bright spots in the image*: Thresholding operations followed by dilation, erosion and other preprocessing functions returns an image with only the digits displayed highlighted.
+	- *Extracting the digit ROI*: Contours that are large enough to be a digit(the appropriate width and height constraints requires a few rounds of trial and error) in the image is taken as a digit ROI. A contour is simply a curve joining all the continuous points (along the boundary), having same color or intensity.
+	- *Identify the digits*: Recognizing the actual digits with OpenCV will involve dividing the digit ROI into seven segments. From there, pixel counting on the thresholded image is applied to determine if a given segment is “on” or “off”.
+
+###### Snippets of the code from temp_detect.py depicting above steps:
+
+```python
+# Detecting bright spots: Convert pixels >110 to white
+thresh = cv2.threshold(image, 110, 255, cv2.THRESH_BINARY)[1]
+```
+
+```python
+# Finding contours and extracting digit ROI
+cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+cnts = imutils.grab_contours(cnts)
+digitCnts = []
+	
+for c in cnts:
+  # compute the bounding box of the contour
+  (x, y, w, h) = cv2.boundingRect(c)
+  # if the contour is sufficiently large, it must be a digit
+  if (15 <= w <= 45) and (20 <= h <= 55):
+      digitCnts.append(c)
+```
+
+```python
+# Identify the digits
+on = [0] * len(segments)
+
+for (i, ((xs, ys), (xf, yf))) in enumerate(segments):
+  segRoi = roi[ys:yf, xs:xf]  # Get segment ROI
+  no_of_pixels = cv2.countNonZero(segRoi)
+  area = (xf - xs) * (yf - ys)
+  
+  # If the number of white pixels in segment ROI is greater than 50%, the segment is active
+  # If true, on[segment_num] = 1
+  if no_of_pixels / float(area) >= 0.5:
+      on[i] = 1
+
+# digit has the number the seven segment display shows. 
+# DIGITS_LOOKUP is a dictionary that maps a seven element tuple (on) to its digit value.
+digit = DIGITS_LOOKUP.get(tuple(on), -1)
+```
 	
 Full Code on Github: [temp_detect.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/temp_detect2.py)
 
@@ -48,9 +88,10 @@ Full Code on Github: [temp_detect.py](https://github.com/shwetha1607/Server-temp
 Users can opt-out from or resume receiving notifications via sending a mail with a specific subject and keyword by clicking on the link available on the site. Python's `imaplib` is used to read these received mails.
 The database of users can be updated by running [getsheetdata.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/getsheetdata.py). Google Drive and Sheets API and Python's `gspread` library is used to implement this. References to this is linked down below. The status of the user's notification preference( active or inactive) is also checked and updated in the process.
 
-FUll code on Github: [getsheetdata.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/getsheetdata.py), [receivemail.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/receivemail.py)
+Full code on Github: [getsheetdata.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/getsheetdata.py), [receivemail.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/receivemail.py)
 
 * __*Mailing service for sending out alerts*__: 
+	
 
 
 ### References
