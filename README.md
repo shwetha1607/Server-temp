@@ -84,7 +84,7 @@ digit = DIGITS_LOOKUP.get(tuple(on), -1)
 Full Code on Github: [temp_detect.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/temp_detect2.py)
 
 * __*Register*__:
-	A site for users to register by providing a temperature threshold and email/phone number to receive alerts is up and running at [this site] (https://roomserver.github.io/Server-Temperature/)
+	A site for users to register by providing a temperature threshold and email/phone number to receive alerts is up and running at [this site](https://roomserver.github.io/Server-Temperature/)
     
 Users can opt-out from or resume receiving notifications via sending a mail with a specific subject and keyword by clicking on the link available on the site. Python's `imaplib` is used to read these received mails.
 The database of users can be updated by running [getsheetdata.py](https://github.com/shwetha1607/Server-temp/blob/Version-1.1/getsheetdata.py). Google Drive and Sheets API and Python's `gspread` library is used to implement this. References to this is linked down below. The status of the user's notification preference( active or inactive) is also checked and updated in the process.
@@ -130,9 +130,15 @@ python /home/pi/stillpic.py
 python /home/pi/Detect_Notify/pidriver.py
 ```
 
+### Feedback
+
+For any feedback, queries, fill in this [form](https://docs.google.com/forms/d/e/1FAIpQLSd1Hi3Tuu2ZcA4oDTHY-hGVPQgglfqPrlwuhB64tccOtaXlug/viewform).
+
 ### References
 
 * [Accessing Picamera with OpenCV and python](https://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/)
 * [Recognizing digits](https://www.pyimagesearch.com/2017/02/13/recognizing-digits-with-opencv-and-python/)
 * [Google Spreadsheets and Python](https://www.twilio.com/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html)
 * [Python's imaplib](https://docs.python.org/3/library/imaplib.html)
+* [Python's smtplib](https://docs.python.org/3/library/smtplib.html)
+* [Python's email](https://docs.python.org/3/library/email.examples.html)
