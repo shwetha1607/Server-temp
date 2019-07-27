@@ -39,13 +39,13 @@ A sample image of the display:
 	- *Identify the digits*: Recognizing the actual digits with OpenCV will involve dividing the digit ROI into seven segments. From there, pixel counting on the thresholded image is applied to determine if a given segment is “on” or “off”.
 
 * __*Detecting the temperature using lm35 sensor*__:
-        The value of sensor is read using tempsens code and is converted into temperature in degrees by multiplying it with a constant(28/100) and the obtained temperature is pushed into a text file which is later read in main.py file
+        The value of sensor is read using tempsens code and is converted into temperature in degrees by multiplying it with a constant(28/100) and the obtained temperature is pushed into a text file which is later read in main.py file.
  
 * __*Recording sound and finding decibel value of the sound*__:
-	The sound is recorded using microphone with the command 'arecord -D plughw:1,0 -d 10 test.wav' and it's decibel value can be found using the code predict.py
+	The sound is recorded using microphone with the command 'arecord -D plughw:1,0 -d 10 test.wav' and it's decibel value can be found using the code predict.py.
 
 * __*Classifying sound into it's particular class*__:
-	A machine learning technique called svm is used to classify sounds first one has to leave the microphone recording for 20 mins to 30 mins and later break these into smaller chunks of 10 seconds to obtain the test cases then we have to train the model on the laptop and deploy it on pi using scp protocol
+	A machine learning technique called svm is used to classify sounds first one has to leave the microphone recording for 20 mins to 30 mins and later break these into smaller chunks of 10 seconds to obtain the test cases then we have to train the model on the laptop using train.py and deploy it on pi using scp protocol.
   
 * __*Register*__:
 	A site for users to register by providing a temperature threshold and email/phone number to receive alerts is up and running at [this site](https://roomserver.github.io/server/)
