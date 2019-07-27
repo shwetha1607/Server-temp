@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 cd /home/pi/Adafruit_Python_MCP3008/examples
-python /home/pi/Adafruit_Python_MCP3008/examples/tempsens.py
+sudo python /home/pi/Adafruit_Python_MCP3008/examples/tempsens.py
 
