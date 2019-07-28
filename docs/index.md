@@ -13,7 +13,6 @@ This system uses Computer Vision to detect the temperature reading from the disp
 * microphone with usb jack
 * Installing Librosa on Raspberry Pi:
      - One has to install librosa by first installing berryconda and then installing librosa by command 'conda install -c conda-forge librosa'
-* [requirements.txt]()
 ### Seting up
 * connect picam to camera slot on raspberry pi
 * setting up temperature sensor 
