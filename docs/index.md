@@ -66,7 +66,7 @@ Full code on Github: [getsheetdata.py](https://github.com/shwetha1607/Server-tem
 
 ### Scheduling tasks
 
-To automate the tasks described above crontab is used. It periodically runs the jobs scheduled to it. The instructions for this model are in cron.txt file
+To automate the tasks described above crontab is used. It periodically runs the jobs scheduled to it. The jobs basically are making the files in script_files folder run according to the frequency in which we want them to. The instructions for this model are in cron.txt file.
 
 
 
